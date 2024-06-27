@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block title %}Rooms | {% endblock %}
+
+{% block content %}
+ 
+    <h2>Create room</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        <input type="text" name="room_name" placeholder="Room Name">
+        
+        <input type="submit">
+        
+       
+    </form>
+
+{% endblock %}

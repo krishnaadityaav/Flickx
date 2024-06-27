@@ -1,0 +1,76 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Rooms | {% endblock %}
+
+{% block content %}
+
+<div class="ml-8 py-6">
+    <form method="get">
+        <input type="text" name="mrname" value=""  class="text-xl lg:text-xl text-white rounded-xl">
+        <input type="submit" value="Search" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">    
+    </form>
+</div>
+<div class="w-full lg:w-1/4 px-3 py-3">
+    <div class="p-4 bg-white shadow rounded-xl text-center">
+        <form action="{% url 'create_room' %}">
+            <button type="submit" class="font-bold">Create Room</button>
+         </form>
+    </div>
+</div>
+<div class="p-10 lg:p-20 text-center">
+    <h1 class="text-4xl lg:text-4xl text-white">O W N E R S H I P</h1>
+</div>
+<div class="w-full flex flex-wrap items-center">
+
+    {% for room in my_rooms %}
+        <div class="w-full lg:w-1/4 px-3 py-3 transition duration-500 hover:scale-110">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
+                <h2>Owner : {{room.owner}}</h2>
+                <h2>Members : {{room.members.count}}</h2>
+                
+                <form method="POST" action="{% url 'enter_room' %}">
+                    {% csrf_token %}
+                    <label for="room_name " class="font-bold">Room Name:</label>
+                    <input type="text" name="room_name" required><br><br>
+                    
+                    <input type="submit" value="Enter Room" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-7 rounded-full">
+
+                </form>
+                
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="p-10 lg:p-20 text-center">
+    <h1 class="text-4xl lg:text-4xl text-white">M E M B E R S H I P</h1>
+</div>
+<div class="w-full flex flex-wrap items-center">
+    
+    {% for room in rooms %}
+    {% if user in room.members.all %}
+        <div class="w-full lg:w-1/4 px-3 py-3 transition duration-500 hover:scale-110">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
+                <h2>Owner : {{room.owner}}</h2>
+                <h2>Members : {{room.members.count}}</h2>
+                
+                <form method="POST" action="{% url 'enter_room' %}">
+                    {% csrf_token %}
+                    <label for="room_name">Room Name:</label>
+                    <input type="text" name="room_name" required><br><br>
+                    
+                    <input type="submit" value="Enter Room" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-7 rounded-full">
+
+                </form>
+                
+
+            </div>
+        </div>
+    {% endif %}
+    {% endfor %}
+
+
+</div>
+{% endblock %}

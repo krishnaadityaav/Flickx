@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Rooms | {% endblock %}
+
+{% block content %}
+<div class="ml-8 py-6">
+    <form method="get">
+        <input type="text" name="rname" value="" class="text-xl lg:text-xl text-white rounded-xl">
+        <input type="submit" value="Search" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">    
+    </form>
+</div>
+
+<div class="w-full flex flex-wrap items-center">
+    
+    {% for room in rooms %}
+        <div class="w-full lg:w-1/4 px-5 py-5 transition duration-500 hover:scale-110">
+            <div class="p-4 bg-white shadow rounded-xl text-center">
+                <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
+                <h2>Owner : {{room.owner}}</h2>
+                <h2>Members :{{room.members.count}}</h2>
+                <form method="POST">
+                    
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-7 rounded-full">Join</button>
+                </form>
+                {% if form.errors %}
+                <p class="text-xl lg:text-xl text-white text-center">Roomname or Password is incorrect</p>
+                {% endif %}
+
+            </div>  
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
