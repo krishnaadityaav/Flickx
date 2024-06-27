@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}{% endblock %}FlickxChat</title>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <style>
+            .chat-messages {
+                height: 400px;
+                overflow-y: auto;
+            }
+        </style>
+    </head>
+
+    <body class="bg-[#1D3354]">
+        <nav class="flex items-center justify-between px-4 py-6 bg-[#467599]">
+            <div>
+                <a href="/" class="text-xl text-white font-bold">F L I C K X C H A T</a>
+                <h2 class="text-l text-white">Hello, {{request.user}}</h2>
+            </div>
+            
+
+            <div class="flex items-center space-x-4">
+                {% if request.user.is_authenticated %}
+                
+                 </h1>
+   
+            <form action="{% url 'open_rooms' %}" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">
+                <button type="submit">Open Room</button>
+             </form>
+        
+             <form action="{% url 'my_rooms' %}" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">
+                <button type="submit">My Rooms</button>
+             </form>
+             <form action="{% url 'invite_users' %}" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">
+                <button type="submit">Invite</button>
+             </form>
+             <form action="{% url 'manage_join_requests' %}" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">
+                <button type="submit">Requests</button>
+             </form>
+
+    
+    </h1>
+                  
+                    <a href="/rooms/" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">Rooms</a>
+
+                    <a href="/logout/" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">Log out</a>
+                {% else %}
+                    <a href="/login/" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">Log in</a>
+            
+                    <a href="/signup/" class="px-5 py-3 rounded-xl text-white bg-amber-600 hover:bg-[#E9FFF9] hover:text-[#467599] font-bold">Sign up</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>
